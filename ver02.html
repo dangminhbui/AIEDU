@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khóa học AI chuyên sâu | Pademy - Phiên bản Red Tech</title>
+    <title>Khóa học AI chuyên sâu | Pademy</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -183,7 +183,7 @@
         .faq-item details .faq-content { padding: 0 1.5rem 1.5rem 1.5rem; color: var(--pademy-text-secondary); }
     </style>
 </head>
-<body x-data="{ courseModalOpen: false, regModalOpen: false, selectedCourse: 'general', successModalOpen: false, mobileMenuOpen: false }">
+<body x-data="{ courseModalOpen: false, regModalOpen: false, selectedCourse: 'general', successModalOpen: false, paymentModalOpen: false, paymentDetails: { transferContent: '' }, mobileMenuOpen: false }">
 
     <!-- Messenger Chat Plugin -->
     <div id="fb-root"></div>
@@ -230,7 +230,7 @@
     </header>
 
     <main>
-        <!-- HERO SECTION UPDATED -->
+        <!-- HERO SECTION -->
         <section id="hero" class="relative text-white h-[60vh] min-h-[500px] flex items-center justify-center text-center">
             <!-- Background Image -->
             <div class="absolute inset-0 z-0">
@@ -397,8 +397,7 @@
                             <button @click="regModalOpen = true; selectedCourse = 'teacher'" class="cta-button w-full">Đăng ký ngay</button>
                         </div>
                     </div>
-                    <div class="course-card p-8 course-card-popular relative text-center flex flex-col">
-                        <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-pademy-red text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">Phổ biến nhất</div>
+                    <div class="course-card p-8 text-center flex flex-col">
                         <i class="fa-solid fa-atom text-4xl text-pademy-red mb-6 mx-auto"></i>
                         <h3 class="text-2xl font-extrabold mb-4">AI cho Giảng viên & NCKH</h3>
                         <p class="text-pademy-text-secondary mb-6 flex-grow">Lộ trình chuyên sâu cho giảng viên & nhà khoa học muốn tăng tốc nghiên cứu, viết báo và công bố quốc tế.</p>
@@ -546,7 +545,7 @@
         </form>
     </div>
 
-    <!-- Modal: Gửi thành công -->
+    <!-- Modal: Gửi thành công (chung) -->
     <div x-show="successModalOpen" @keydown.escape.window="successModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal" x-cloak>
         <div @click.away="successModalOpen = false" class="bg-white rounded-lg shadow-xl w-full max-w-sm p-8 text-center modal-content" x-show="successModalOpen" x-transition>
             <div class="w-16 h-16 bg-pademy-green rounded-full flex items-center justify-center text-white text-3xl mx-auto"><i class="fa-solid fa-check"></i></div>
@@ -556,19 +555,72 @@
         </div>
     </div>
     
+    <!-- MỚI: Modal Thanh toán -->
+    <div x-show="paymentModalOpen" @keydown.escape.window="paymentModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 modal" x-cloak>
+        <div @click.away="paymentModalOpen = false" class="bg-white rounded-lg shadow-xl w-full max-w-md p-8 text-center modal-content" x-show="paymentModalOpen" x-transition>
+            <div class="w-16 h-16 bg-pademy-red rounded-full flex items-center justify-center text-white text-3xl mx-auto"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <h3 class="text-2xl font-bold my-4">Thông tin thanh toán</h3>
+            <p class="text-pademy-text-secondary mb-6">Bạn vui lòng hoàn tất học phí để giữ suất. Pademy sẽ liên hệ xác nhận ngay sau khi nhận được chuyển khoản.</p>
+            <div class="bg-gray-50 rounded-lg p-4 text-left space-y-4">
+                <div>
+                    <label class="font-semibold text-gray-500 text-sm">Chủ tài khoản</label>
+                    <p class="font-bold text-lg">TRAN LE PHUONG</p>
+                </div>
+                 <div>
+                    <label class="font-semibold text-gray-500 text-sm">Ngân hàng</label>
+                    <p class="font-bold text-lg">Techcombank</p>
+                </div>
+                 <div>
+                    <label class="font-semibold text-gray-500 text-sm">Số tài khoản</label>
+                    <div class="flex items-center space-x-2">
+                        <p class="font-bold text-lg text-pademy-red" id="stk">19031804339888</p>
+                        <button @click="copyToClipboard('stk')" class="text-gray-400 hover:text-pademy-red"><i class="fa-solid fa-copy"></i></button>
+                    </div>
+                </div>
+                 <div>
+                    <label class="font-semibold text-gray-500 text-sm">Nội dung chuyển khoản</label>
+                     <div class="flex items-center space-x-2">
+                        <p class="font-bold text-lg text-pademy-red truncate" x-text="paymentDetails.transferContent" id="noidung"></p>
+                        <button @click="copyToClipboard('noidung')" class="text-gray-400 hover:text-pademy-red flex-shrink-0"><i class="fa-solid fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
+            <button @click="paymentModalOpen = false" class="mt-8 w-full cta-button">Đã hiểu</button>
+        </div>
+    </div>
+    
     <script>
-        // AlpineJS data is already initialized in the body tag.
-        
+        function copyToClipboard(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+            alert('Đã sao chép: ' + textToCopy);
+        }
+
         function submitForm() {
             const form = document.getElementById('registration-form');
             const formData = new FormData(form);
             const alpineData = this;
             
-            // !!!!! HƯỚNG DẪN CÀI ĐẶT !!!!!
-            // 1. Truy cập https://formspree.io/ và đăng ký một tài khoản miễn phí.
-            // 2. Tạo một form mới và lấy URL của nó.
-            // 3. THAY THẾ URL DƯỚI ĐÂY bằng URL của bạn.
-            const formspreeURL = 'https://formspree.io/f/xblyprdn'; // <-- THAY URL CỦA BẠN VÀO ĐÂY
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const course = formData.get('course');
+            
+            let courseName = '';
+            if (course === 'teacher') courseName = 'AI cho Giao vien';
+            if (course === 'researcher') courseName = 'AI cho Giang vien';
+
+            const isPaidCourse = course === 'teacher' || course === 'researcher';
+
+            if(isPaidCourse) {
+                 alpineData.paymentDetails.transferContent = `${name}_${phone}_${courseName}`.toUpperCase().replace(/\s/g, '');
+            }
+
+            const formspreeURL = 'https://formspree.io/f/xblyprdn'; 
             
             fetch(formspreeURL, {
                 method: 'POST',
@@ -576,13 +628,17 @@
                 headers: { 'Accept': 'application/json' }
             })
             .then(response => {
+                alpineData.regModalOpen = false;
                 if (response.ok) {
-                    alpineData.regModalOpen = false;
-                    alpineData.successModalOpen = true;
+                    if (isPaidCourse) {
+                        alpineData.paymentModalOpen = true;
+                    } else {
+                        alpineData.successModalOpen = true;
+                    }
                     form.reset();
                     alpineData.selectedCourse = 'general';
                 } else {
-                    response.json().then(data => {
+                     response.json().then(data => {
                         if (Object.hasOwn(data, 'errors')) {
                             console.error(data.errors);
                             alert(data["errors"].map(error => error["message"]).join(", "));
@@ -601,9 +657,6 @@
 
         // Script cho Messenger Chat Plugin
         var chatbox = document.getElementById('fb-customer-chat');
-        // Page ID cho Fanpage "Pademy2023" là 61556942441996.
-        // Tên người dùng "Pademy2023" không phải là Page ID.
-        // Plugin có thể không hiển thị trong một số môi trường preview, nhưng sẽ hoạt động khi đưa lên web thật.
         chatbox.setAttribute("page_id", "61556942441996"); 
         chatbox.setAttribute("attribution", "biz_inbox");
 
