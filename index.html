@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khóa học AI chuyên sâu | Pademy - Phiên bản Red Tech</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        /* === PADEMY BRANDING & RED TECH THEME === */
+        :root {
+            --pademy-red: #ef4444;
+            --pademy-red-dark: #dc2626;
+            --pademy-blue: #0ea5e9;
+            --pademy-purple: #a78bfa;
+            --pademy-green: #22c55e;
+            --pademy-yellow: #f59e0b;
+            --pademy-cyan: #06b6d4;
+            --pademy-text-dark: #111827;
+            --pademy-text-secondary: #374151;
+            --pademy-bg-light: #f9fafb;
+            --pademy-bg-white: #ffffff;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--pademy-text-dark);
+            background-color: var(--pademy-bg-white);
+        }
+
+        /* Gradient Text (Red theme) */
+        .gradient-text-red {
+            background-image: linear-gradient(to right, var(--pademy-red), #fb923c); /* Red to Orange */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* CTA Button (Red theme) */
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            font-weight: 700;
+            border-radius: 12px;
+            color: white;
+            background-color: var(--pademy-red);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px -5px rgba(239, 68, 68, 0.6);
+            cursor: pointer;
+        }
+        .cta-button:hover {
+            transform: translateY(-4px);
+            background-color: var(--pademy-red-dark);
+            box-shadow: 0 7px 20px -5px rgba(239, 68, 68, 0.8);
+        }
+
+        .secondary-button {
+            display: inline-block;
+            padding: 12px 28px;
+            font-weight: 600;
+            border-radius: 12px;
+            color: var(--pademy-red);
+            background-color: #fee2e2; /* light red */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .secondary-button:hover {
+            background-color: #fecaca; /* lighter red */
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        .section-heading {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 900;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 768px) {
+            .section-heading {
+                font-size: 2.75rem; /* 44px */
+            }
+        }
+        .section-subheading {
+            font-size: 1.125rem;
+            color: var(--pademy-text-secondary);
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        /* Feature Card */
+        .feature-card {
+            background-color: var(--pademy-bg-white);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            text-align: center;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+        .feature-icon-wrapper {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.75rem;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover .feature-icon-wrapper {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+        }
+        
+        /* Course Card */
+        .course-card {
+            background-color: var(--pademy-bg-white);
+            border-radius: 1.25rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+        .course-card-popular {
+            border-color: var(--pademy-red);
+            border-width: 2px;
+        }
+        .course-card-free {
+            border-color: var(--pademy-green);
+        }
+        
+        /* Testimonial Card */
+        .testimonial-card {
+            background-color: var(--pademy-bg-white);
+            border-radius: 1.25rem;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+        .testimonial-card img {
+            border-radius: 0.75rem;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Modal & FAQ Styles */
+        .modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal-content { transition: transform 0.3s ease; }
+        .faq-item details > summary { list-style: none; cursor: pointer; font-weight: 600; padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 8px; transition: background-color 0.2s ease; }
+        .faq-item details > summary:hover { background-color: var(--pademy-bg-light); }
+        .faq-item details > summary::-webkit-details-marker { display: none; }
+        .faq-item details > summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; float: right; transition: transform 0.3s ease; }
+        .faq-item details[open] > summary::after { transform: rotate(180deg); }
+        .faq-item details .faq-content { padding: 0 1.5rem 1.5rem 1.5rem; color: var(--pademy-text-secondary); }
+    </style>
+</head>
+<body x-data="{ courseModalOpen: false, regModalOpen: false, selectedCourse: 'general', successModalOpen: false, mobileMenuOpen: false }">
+
+    <!-- Messenger Chat Plugin -->
+    <div id="fb-root"></div>
+    <div id="fb-customer-chat" class="fb-customerchat"></div>
+    
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-40 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex-shrink-0 flex items-center"><img src="https://i.postimg.cc/4d0PH133/LOGO-01.png" alt="Pademy Logo" class="h-10"></a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-4 lg:space-x-6 font-semibold text-sm lg:text-base">
+                <a href="#problems" class="text-pademy-text-secondary hover:text-pademy-red transition">Khó khăn</a>
+                <a href="#features" class="text-pademy-text-secondary hover:text-pademy-red transition">Lợi ích</a>
+                <a href="#free-courses" class="text-pademy-text-secondary hover:text-pademy-red transition">Khóa miễn phí</a>
+                <a href="#courses" class="text-pademy-text-secondary hover:text-pademy-red transition">Khóa chuyên sâu</a>
+                <a href="#instructor" class="text-pademy-text-secondary hover:text-pademy-red transition">Giảng viên</a>
+                <a href="#testimonials" class="text-pademy-text-secondary hover:text-pademy-red transition">Feedback</a>
+                <a href="#faq" class="text-pademy-text-secondary hover:text-pademy-red transition">FAQ</a>
+            </div>
+            
+            <div class="flex items-center">
+                <button @click="regModalOpen = true; selectedCourse = 'general'" class="cta-button hidden sm:inline-block">Đăng ký</button>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden ml-4">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-2xl text-pademy-text-dark">
+                        <i class="fa-solid" :class="mobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-cloak x-transition class="md:hidden bg-white border-t border-gray-200">
+            <div class="px-6 py-4 space-y-4">
+                 <a @click="mobileMenuOpen=false" href="#problems" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">Khó khăn</a>
+                <a @click="mobileMenuOpen=false" href="#features" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">Lợi ích</a>
+                <a @click="mobileMenuOpen=false" href="#free-courses" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">Khóa miễn phí</a>
+                <a @click="mobileMenuOpen=false" href="#courses" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">Khóa chuyên sâu</a>
+                <a @click="mobileMenuOpen=false" href="#instructor" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">Giảng viên</a>
+                <a @click="mobileMenuOpen=false" href="#testimonials" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">Feedback</a>
+                <a @click="mobileMenuOpen=false" href="#faq" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">FAQ</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION UPDATED -->
+        <section id="hero" class="relative text-white h-[60vh] min-h-[500px] flex items-center justify-center text-center">
+            <!-- Background Image -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://i.postimg.cc/rwnRggBT/dephon.png" alt="Pademy - Bứt phá sự nghiệp với Trí tuệ nhân tạo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1920x800/111827/ffffff?text=Image+Not+Found';">
+            </div>
+            
+            <!-- Content -->
+            <div class="relative z-10 container mx-auto px-6">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4 text-gray-900" style="text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);">Bứt Phá Sự Nghiệp Với Trí Tuệ Nhân Tạo</h1>
+                <p class="text-lg md:text-xl text-gray-800 font-medium max-w-3xl mx-auto mb-10" style="text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);">Khóa học chuyên sâu giúp nhà giáo dục và nhà nghiên cứu làm chủ AI, tự động hóa công việc và kiến tạo tương lai.</p>
+                <button @click="regModalOpen = true; selectedCourse = 'general'" class="cta-button text-lg"><i class="fa-solid fa-rocket mr-2"></i> Đăng ký tư vấn</button>
+            </div>
+        </section>
+
+        <section id="problems" class="py-20 md:py-24">
+            <div class="container mx-auto px-6">
+                 <div class="text-center">
+                    <h2 class="section-heading">Thầy cô có đang gặp phải <span class="gradient-text-red">những khó khăn</span> này?</h2>
+                    <p class="section-subheading max-w-full lg:max-w-4xl">AI là xu thế không thể đảo ngược, nhưng việc bắt đầu không phải lúc nào cũng dễ dàng.</p>
+                </div>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-x-12 gap-y-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-red-100 text-pademy-red rounded-full text-xl"><i class="fa-solid fa-computer"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg">Yếu về công nghệ</h3>
+                            <p class="text-pademy-text-secondary">Cảm thấy bối rối, khó tiếp cận với các công cụ AI phức tạp.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-red-100 text-pademy-red rounded-full text-xl"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg">Mông lung, mất phương hướng</h3>
+                            <p class="text-pademy-text-secondary">Muốn học AI nhưng có quá nhiều thông tin, không biết bắt đầu từ đâu.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-red-100 text-pademy-red rounded-full text-xl"><i class="fa-solid fa-hand-holding-hand"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg">Cần người hướng dẫn</h3>
+                            <p class="text-pademy-text-secondary">Mong muốn có người "cầm tay chỉ việc", giải đáp thắc mắc từng bước.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-red-100 text-pademy-red rounded-full text-xl"><i class="fa-solid fa-hourglass-half"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg">Áp lực công việc</h3>
+                            <p class="text-pademy-text-secondary">Giáo án, chỉ tiêu, KPI ứng dụng AI đang đè nặng lên đôi vai.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4 md:col-span-2 md:max-w-md md:mx-auto">
+                        <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-red-100 text-pademy-red rounded-full text-xl"><i class="fa-solid fa-people-group"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg">Cần người đồng hành</h3>
+                            <p class="text-pademy-text-secondary">Tìm kiếm một người dẫn dắt và một cộng đồng hỗ trợ cho đến khi thành thạo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="py-20 md:py-24 bg-pademy-bg-light">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-heading">Tại sao nên chọn Pademy?</h2>
+                    <p class="section-subheading">Chúng tôi không chỉ dạy bạn công cụ, mà còn trao cho bạn tư duy và phương pháp để bứt phá.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper bg-pademy-red"><i class="fa-solid fa-gauge-high"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Hiệu Suất Vượt Trội</h3>
+                        <p class="text-pademy-text-secondary">Tự động hóa 80% công việc soạn thảo, giúp bạn tập trung vào chuyên môn sâu.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper bg-pademy-blue"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Sáng Tạo Không Giới Hạn</h3>
+                        <p class="text-pademy-text-secondary">Thiết kế slide, video, hình ảnh chuyên nghiệp để tạo ra bài giảng hấp dẫn.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper bg-pademy-green"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Tư Duy Đột Phá</h3>
+                        <p class="text-pademy-text-secondary">Làm chủ kỹ thuật Prompt và các công cụ AI hàng đầu để nâng cao năng lực cốt lõi.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper bg-pademy-purple"><i class="fa-solid fa-route"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Lộ Trình "May Đo"</h3>
+                        <p class="text-pademy-text-secondary">Chương trình được thiết kế chuyên biệt cho giáo viên và nhà nghiên cứu khoa học.</p>
+                    </div>
+                     <div class="feature-card">
+                        <div class="feature-icon-wrapper bg-pademy-yellow"><i class="fa-solid fa-headset"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Hỗ Trợ Chuyên Sâu</h3>
+                        <p class="text-pademy-text-secondary">Giảng viên và ekip đồng hành, quyền học lại hết năm 2025 và video record buổi học trọn đời.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper bg-pademy-cyan"><i class="fa-solid fa-users-gear"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Cộng Đồng Tinh Hoa</h3>
+                        <p class="text-pademy-text-secondary">Gia nhập mạng lưới các nhà giáo dục, nhà khoa học tiên phong ứng dụng AI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="free-courses" class="py-20 md:py-24">
+             <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-heading">Trải Nghiệm Miễn Phí <span class="gradient-text-red">Cùng Pademy</span></h2>
+                    <p class="section-subheading">Tham gia các lớp học nhập môn và workshop hàng tháng để làm quen với AI và khám phá tiềm năng của công nghệ này.</p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto">
+                    <div class="course-card course-card-free p-8 flex flex-col">
+                        <div class="flex-grow">
+                             <div class="flex justify-between items-start">
+                                <i class="fa-solid fa-graduation-cap text-4xl text-pademy-green mb-6"></i>
+                                <span class="bg-green-100 text-pademy-green text-xs font-bold px-3 py-1 rounded-full">MIỄN PHÍ</span>
+                            </div>
+                            <h3 class="text-2xl font-extrabold mb-4">Nhập môn AI cho Giáo viên</h3>
+                            <p class="text-pademy-text-secondary mb-6">Khóa học 2 buổi giúp thầy cô làm quen với các khái niệm và công cụ AI cơ bản nhất.</p>
+                        </div>
+                        <div class="border-t border-gray-200 pt-4 mt-auto space-y-2 text-sm text-pademy-text-secondary">
+                             <p><i class="fa-solid fa-clock w-5 text-center mr-2 text-gray-400"></i> <strong>Thời lượng:</strong> 2 buổi (19h45 - 22h)</p>
+                             <p><i class="fa-solid fa-calendar-alt w-5 text-center mr-2 text-gray-400"></i> <strong>Tổ chức:</strong> 11 và 12/07/2025</p>
+                        </div>
+                        <div class="mt-6">
+                            <button @click="regModalOpen = true; selectedCourse = 'free-intro'" class="cta-button w-full bg-pademy-green hover:bg-green-700 shadow-lg shadow-green-500/30">Đăng ký ngay</button>
+                        </div>
+                    </div>
+                     <div class="course-card course-card-free p-8 flex flex-col">
+                        <div class="flex-grow">
+                             <div class="flex justify-between items-start">
+                                <i class="fa-solid fa-person-chalkboard text-4xl text-pademy-green mb-6"></i>
+                                <span class="bg-green-100 text-pademy-green text-xs font-bold px-3 py-1 rounded-full">MIỄN PHÍ</span>
+                            </div>
+                            <h3 class="text-2xl font-extrabold mb-4">Workshop Ứng dụng AI</h3>
+                            <p class="text-pademy-text-secondary mb-6">Buổi chia sẻ chuyên sâu về các ứng dụng thực tiễn của AI trong giảng dạy và nghiên cứu.</p>
+                        </div>
+                        <div class="border-t border-gray-200 pt-4 mt-auto space-y-2 text-sm text-pademy-text-secondary">
+                             <p><i class="fa-solid fa-clock w-5 text-center mr-2 text-gray-400"></i> <strong>Thời lượng:</strong> 1 buổi (19h45 - 22h)</p>
+                             <p><i class="fa-solid fa-calendar-alt w-5 text-center mr-2 text-gray-400"></i> <strong>Tổ chức:</strong> 13/07/2025</p>
+                        </div>
+                        <div class="mt-6">
+                           <button @click="regModalOpen = true; selectedCourse = 'free-workshop'" class="cta-button w-full bg-pademy-green hover:bg-green-700 shadow-lg shadow-green-500/30">Đăng ký ngay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="courses" class="py-20 md:py-24 bg-pademy-bg-light">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-heading">Lựa Chọn <span class="gradient-text-red">Chương Trình Chuyên Sâu</span></h2>
+                    <p class="section-subheading">Hai lộ trình trả phí chuyên biệt, được "may đo" cho từng nhu cầu cụ thể.</p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8 lg:gap-10">
+                    <div class="course-card p-8 text-center flex flex-col">
+                        <i class="fa-solid fa-chalkboard-user text-4xl text-pademy-blue mb-6 mx-auto"></i>
+                        <h3 class="text-2xl font-extrabold mb-4">AI cho Giáo viên</h3>
+                        <p class="text-pademy-text-secondary mb-6 flex-grow">Lộ trình cho giáo viên muốn đổi mới giảng dạy, tự động hóa công việc và tạo bài giảng đột phá.</p>
+                        <div class="my-6">
+                           <p class="text-xl font-semibold text-gray-400 line-through">1.200.000 VNĐ</p>
+                           <p class="text-5xl font-extrabold text-pademy-red">599.000<span class="text-2xl font-bold"> VNĐ</span></p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+                            <button @click="courseModalOpen = true; selectedCourse = 'teacher'" class="secondary-button w-full">Xem chi tiết</button>
+                            <button @click="regModalOpen = true; selectedCourse = 'teacher'" class="cta-button w-full">Đăng ký ngay</button>
+                        </div>
+                    </div>
+                    <div class="course-card p-8 course-card-popular relative text-center flex flex-col">
+                        <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-pademy-red text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">Phổ biến nhất</div>
+                        <i class="fa-solid fa-atom text-4xl text-pademy-red mb-6 mx-auto"></i>
+                        <h3 class="text-2xl font-extrabold mb-4">AI cho Giảng viên & NCKH</h3>
+                        <p class="text-pademy-text-secondary mb-6 flex-grow">Lộ trình chuyên sâu cho giảng viên & nhà khoa học muốn tăng tốc nghiên cứu, viết báo và công bố quốc tế.</p>
+                        <div class="my-6">
+                           <p class="text-xl font-semibold text-gray-400 line-through">3.990.000 VNĐ</p>
+                           <p class="text-5xl font-extrabold text-pademy-red">1.800.000<span class="text-2xl font-bold"> VNĐ</span></p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+                           <button @click="courseModalOpen = true; selectedCourse = 'researcher'" class="secondary-button w-full">Xem chi tiết</button>
+                           <button @click="regModalOpen = true; selectedCourse = 'researcher'" class="cta-button w-full">Đăng ký ngay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="instructor" class="py-20 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="max-w-5xl mx-auto md:flex items-center gap-12 lg:gap-16">
+                    <div class="md:w-2/5 mb-12 md:mb-0 flex-shrink-0">
+                         <div class="p-1.5 rounded-2xl bg-gradient-to-br from-red-500 via-orange-400 to-yellow-300 shadow-2xl hover:shadow-red-500/40 transition-shadow duration-300">
+                             <img class="rounded-xl w-full" src="https://i.postimg.cc/MT8Jtzv7/16-08-HNMRVICKYBUIPFCC18-H-TB39402.jpg" alt="Chân dung Bùi Đăng Minh" onerror="this.onerror=null;this.src='https://placehold.co/400x500/e0e0e0/333?text=Ảnh+Giảng+Viên';">
+                        </div>
+                    </div>
+                    <div class="md:w-3/5">
+                        <h2 class="section-heading">Gặp gỡ <span class="gradient-text-red">chuyên gia</span></h2>
+                        <h3 class="text-3xl font-bold text-pademy-text-dark mb-2">Bùi Đăng Minh</h3>
+                        <div class="space-y-2 mb-4 text-pademy-text-secondary">
+                           <p class="font-semibold text-lg text-pademy-red">Chuyên gia Ứng dụng AI trong Giáo dục & Nghiên cứu</p>
+                           <p class="font-semibold"><i class="fa-solid fa-briefcase text-gray-400 w-5 mr-1"></i> Giám đốc điều hành Pademy Việt Nam</p>
+                           <p class="font-semibold"><i class="fa-solid fa-rocket text-gray-400 w-5 mr-1"></i> Chuyên gia tư vấn khởi nghiệp - ĐH FPT Hà Nội</p>
+                        </div>
+                        <p class="text-lg leading-relaxed">Với niềm đam mê mãnh liệt trong việc đổi mới giáo dục bằng công nghệ, thầy đã dành nhiều năm nghiên cứu và triển khai các giải pháp AI, giúp hàng trăm giáo viên và nhà nghiên cứu tối ưu hóa công việc và đạt được những thành tựu vượt trội.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="testimonials" class="py-20 md:py-24 bg-pademy-bg-light">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-heading">Học viên <span class="gradient-text-red">nói gì</span> về Pademy?</h2>
+                    <p class="section-subheading">Minh chứng rõ ràng nhất cho chất lượng chính là sự hài lòng và những kết quả mà học viên đạt được.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="testimonial-card">
+                        <img src="https://i.postimg.cc/4dNwDKYR/z6738525058331-2300660b151ea20c970da68b151083cc.jpg" alt="Feedback từ học viên 1"
+                             onerror="this.onerror=null;this.src='https://placehold.co/380x560/f3f4f6/111827?text=Image+Not+Found';">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://i.postimg.cc/6QQYS22J/z6738525045747-97b18d5faed26b57f874bc7c6deddbfd.jpg" alt="Feedback từ học viên 2"
+                             onerror="this.onerror=null;this.src='https://placehold.co/380x560/f3f4f6/111827?text=Image+Not+Found';">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://i.postimg.cc/tgm2HqW1/z6738525071075-3bcab19b3b6039ff050b7c2239b7f1b0.jpg" alt="Feedback từ học viên 3"
+                             onerror="this.onerror=null;this.src='https://placehold.co/380x560/f3f4f6/111827?text=Image+Not+Found';">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-20 md:py-24">
+           <div class="container mx-auto px-6">
+               <div class="text-center">
+                   <h2 class="section-heading">Giải đáp thắc mắc</h2>
+                   <p class="section-subheading">Những câu hỏi phổ biến nhất về các khóa học AI, giúp bạn đưa ra quyết định một cách tự tin.</p>
+               </div>
+               <div class="max-w-3xl mx-auto space-y-4">
+                   <div class="faq-item"><details><summary>Tôi có cần biết về lập trình để tham gia không?</summary><div class="faq-content"><p class="pt-4">Hoàn toàn không. Các khóa học được thiết kế cho người không chuyên, tập trung hướng dẫn bạn sử dụng và khai thác sức mạnh của các công cụ AI có sẵn mà không yêu cầu kiến thức lập trình.</p></div></details></div>
+                   <div class="faq-item"><details><summary>Hình thức học tập của khóa học là gì?</summary><div class="faq-content"><p class="pt-4">Các khóa học được tổ chức theo hình thức trực tuyến (online) qua Zoom, thực hành trực tiếp với giảng viên và video buổi học xem lại trọn đời để đảm bảo bạn có thể học tập linh hoạt và được hỗ trợ tối đa.</p></div></details></div>
+                   <div class="faq-item"><details><summary>Tôi sẽ nhận được gì sau khi hoàn thành khóa học?</summary><div class="faq-content"><p class="pt-4">Sau khi hoàn thành, bạn sẽ nhận được chứng nhận từ Pademy, toàn bộ tài liệu, video bài giảng và quan trọng nhất là năng lực sử dụng AI thành thạo. Bạn cũng được tham gia cộng đồng cựu học viên để trao đổi và cập nhật kiến thức liên tục.</p></div></details></div>
+               </div>
+           </div>
+       </section>
+        
+        <footer class="bg-pademy-text-dark text-white">
+            <div class="container mx-auto px-6 py-12 text-center">
+                <a href="#"><img src="https://i.postimg.cc/4d0PH133/LOGO-01.png" alt="Pademy Logo" class="h-12 mb-4 mx-auto filter brightness-0 invert"></a>
+                <p class="text-gray-400 max-w-xl mx-auto mb-8">Pademy - Tiên phong trong ứng dụng AI vào giáo dục và nghiên cứu.</p>
+                <div class="border-t border-gray-700 pt-8 text-gray-500 text-sm">
+                    <p>&copy; 2024 Pademy. All rights reserved.</p>
+                    <p class="mt-1">Liên hệ: Bùi Đăng Minh | 0918888691 | dangminhbui@pademy.vn</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Modal: Chi tiết khóa học -->
+    <div x-show="courseModalOpen" @keydown.escape.window="courseModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal" x-cloak>
+        <div @click.away="courseModalOpen = false" class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8 modal-content" x-show="courseModalOpen" x-transition>
+            <div x-show="selectedCourse === 'teacher'">
+                <h3 class="text-2xl font-bold mb-4">Chi tiết: AI cho Giáo viên</h3>
+                <p class="text-pademy-text-secondary mb-6">Trang bị toàn diện kỹ năng ứng dụng AI để tạo ra những giờ học đột phá và hiệu quả.</p>
+                <div class="space-y-4">
+                    <div><h4 class="font-bold"><i class="fa-solid fa-bullseye mr-2 text-pademy-red"></i>Nội dung chương trình</h4><p class="text-sm text-pademy-text-secondary pl-6">Toàn bộ các nhiệm vụ soạn giảng: giáo án, slide, video bài giảng, lồng tiếng video; Tạo câu hỏi, đề thi; Chấm bài và phản hồi tự động; Tóm tắt văn bản,thông tư, nghị định thành sơ đồ tư duy.</p></div>
+                    <div><h4 class="font-bold"><i class="fa-solid fa-star mr-2 text-pademy-blue"></i>Điểm khác biệt</h4><p class="text-sm text-pademy-text-secondary pl-6">Tập trung vào các case study thực tế, thực hành 100% trên các công cụ AI tân tiến.</p></div>
+                    <div><h4 class="font-bold"><i class="fa-solid fa-calendar-days mr-2 text-pademy-green"></i>Khai giảng</h4><p class="text-sm text-pademy-text-secondary pl-6">Từ 20h đến 22h ngày 02, 03/07/2025.</p></div>
+                    <div><h4 class="font-bold"><i class="fa-solid fa-clock mr-2 text-pademy-red"></i>Thời lượng</h4><p class="text-sm text-pademy-text-secondary pl-6">2 buổi học chuyên sâu, mỗi buổi 2 giờ.</p></div>
+                    <div><h4 class="font-bold"><i class="fa-solid fa-laptop mr-2 text-pademy-blue"></i>Hình thức học</h4><p class="text-sm text-pademy-text-secondary pl-6">Học trực tuyến qua Zoom và được cung cấp video xem lại trọn đời; Quyền học lại khóa học hết năm 2025.</p></div>
+                </div>
+            </div>
+            <div x-show="selectedCourse === 'researcher'">
+                <h3 class="text-2xl font-bold mb-4">Chi tiết: AI cho Giảng viên & NCKH</h3>
+                <p class="text-pademy-text-secondary mb-6">Trở thành chuyên gia sử dụng AI để đẩy nhanh tiến độ và nâng cao chất lượng công trình nghiên cứu khoa học.</p>
+                 <div class="space-y-4">
+                    <div><h4 class="font-bold"><i class="fa-solid fa-bullseye mr-2 text-pademy-red"></i>Nội dung chương trình</h4><p class="text-sm text-pademy-text-secondary pl-6">Toàn bộ các nhiệm vụ soạn giảng; Tìm kiếm và tổng hợp tài liệu; Phân tích dữ liệu, trực quan hoá bằng biểu đồ; Viết và chỉnh sửa bài báo khoa học; Kiểm tra đạo văn, kiểm tra ngữ pháp, cấu trúc; Format văn bản chuẩn tạp chí quốc tế đăng tải.</p></div>
+                    <div><h4 class="font-bold"><i class="fa-solid fa-star mr-2 text-pademy-blue"></i>Điểm khác biệt</h4><p class="text-sm text-pademy-text-secondary pl-6">Quy trình ứng dụng AI chuyên sâu cho từng bước của quá trình nghiên cứu, từ lúc lên ý tưởng đến khi công bố.</p></div>
+                    <div><h4 class="font-bold"><i class="fa-solid fa-calendar-days mr-2 text-pademy-green"></i>Khai giảng</h4><p class="text-sm text-pademy-text-secondary pl-6">Từ 20h đến 21h30 ngày 04,05,07,08/07/2025.</p></div>
+                    <div><h4 class="font-bold"><i class="fa-solid fa-clock mr-2 text-pademy-red"></i>Thời lượng</h4><p class="text-sm text-pademy-text-secondary pl-6">04 buổi học chuyên sâu, mỗi buổi 1.5 giờ.</p></div>
+                    <div><h4 class="font-bold"><i class="fa-solid fa-laptop mr-2 text-pademy-blue"></i>Hình thức học</h4><p class="text-sm text-pademy-text-secondary pl-6">Học trực tuyến qua Zoom, thực hành và hỗ trợ 1-1 (thời lượng 1 giờ) sau khóa học; Video record các buổi học xem lại trọn đời; Quyền học lại khoá học đến hết năm 2025.</p></div>
+                </div>
+            </div>
+            <button @click="courseModalOpen = false" class="mt-6 w-full secondary-button">Đóng</button>
+        </div>
+    </div>
+
+    <!-- Modal: Đăng ký -->
+    <div x-show="regModalOpen" @keydown.escape.window="regModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal" x-cloak>
+        <form id="registration-form" @submit.prevent="submitForm" class="bg-white rounded-lg shadow-xl w-full max-w-lg p-8 modal-content" x-show="regModalOpen" x-transition>
+            <h3 class="text-2xl font-bold mb-2">Đăng ký tư vấn & Trải nghiệm</h3>
+            <p class="text-pademy-text-secondary mb-6">Để lại thông tin, Pademy sẽ liên hệ với bạn ngay!</p>
+            <div class="space-y-4">
+                <div><label for="name" class="font-semibold block mb-1">Họ và tên</label><input type="text" id="name" name="name" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-pademy-red focus:border-transparent"></div>
+                <div><label for="email" class="font-semibold block mb-1">Email</label><input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-pademy-red focus:border-transparent"></div>
+                <div><label for="phone" class="font-semibold block mb-1">Số điện thoại</label><input type="tel" id="phone" name="phone" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-pademy-red focus:border-transparent"></div>
+                <div>
+                    <label for="course" class="font-semibold block mb-1">Khóa học quan tâm</label>
+                    <select id="course" name="course" x-model="selectedCourse" class="w-full border border-gray-300 rounded-lg p-3 bg-white focus:ring-2 focus:ring-pademy-red focus:border-transparent">
+                        <option value="general">Tư vấn chung</option>
+                        <optgroup label="Khóa học miễn phí">
+                            <option value="free-intro">Nhập môn AI cho Giáo viên</option>
+                            <option value="free-workshop">Workshop Ứng dụng AI</option>
+                        </optgroup>
+                        <optgroup label="Khóa học chuyên sâu">
+                            <option value="teacher">AI cho Giáo viên</option>
+                            <option value="researcher">AI cho Giảng viên & NCKH</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-6 flex flex-col sm:flex-row gap-4">
+                <button type="button" @click="regModalOpen = false" class="w-full py-3 px-6 rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">Hủy</button>
+                <button type="submit" class="cta-button w-full">Gửi thông tin</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal: Gửi thành công -->
+    <div x-show="successModalOpen" @keydown.escape.window="successModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal" x-cloak>
+        <div @click.away="successModalOpen = false" class="bg-white rounded-lg shadow-xl w-full max-w-sm p-8 text-center modal-content" x-show="successModalOpen" x-transition>
+            <div class="w-16 h-16 bg-pademy-green rounded-full flex items-center justify-center text-white text-3xl mx-auto"><i class="fa-solid fa-check"></i></div>
+            <h3 class="text-2xl font-bold my-4">Gửi thành công!</h3>
+            <p class="text-pademy-text-secondary mb-6">Cảm ơn bạn! Pademy đã nhận được thông tin và sẽ liên hệ với bạn trong thời gian sớm nhất.</p>
+            <button @click="successModalOpen = false" class="cta-button w-full">Tuyệt vời!</button>
+        </div>
+    </div>
+    
+    <script>
+        // AlpineJS data is already initialized in the body tag.
+        
+        function submitForm() {
+            const form = document.getElementById('registration-form');
+            const formData = new FormData(form);
+            const alpineData = this;
+            
+            // !!!!! HƯỚNG DẪN CÀI ĐẶT !!!!!
+            // 1. Truy cập https://formspree.io/ và đăng ký một tài khoản miễn phí.
+            // 2. Tạo một form mới và lấy URL của nó.
+            // 3. THAY THẾ URL DƯỚI ĐÂY bằng URL của bạn.
+            const formspreeURL = 'https://formspree.io/f/xblyprdn'; // <-- THAY URL CỦA BẠN VÀO ĐÂY
+            
+            fetch(formspreeURL, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alpineData.regModalOpen = false;
+                    alpineData.successModalOpen = true;
+                    form.reset();
+                    alpineData.selectedCourse = 'general';
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            console.error(data.errors);
+                            alert(data["errors"].map(error => error["message"]).join(", "));
+                        } else {
+                            console.error('Submission error:', data);
+                            alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+                        }
+                    })
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('Đã có lỗi xảy ra. Vui lòng kiểm tra kết nối mạng và thử lại.');
+            });
+        }
+
+        // Script cho Messenger Chat Plugin
+        var chatbox = document.getElementById('fb-customer-chat');
+        // Page ID cho Fanpage "Pademy2023" là 61556942441996.
+        // Tên người dùng "Pademy2023" không phải là Page ID.
+        // Plugin có thể không hiển thị trong một số môi trường preview, nhưng sẽ hoạt động khi đưa lên web thật.
+        chatbox.setAttribute("page_id", "61556942441996"); 
+        chatbox.setAttribute("attribution", "biz_inbox");
+
+        window.fbAsyncInit = function() {
+            FB.init({
+            xfbml            : true,
+            version          : 'v19.0'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+</body>
+</html>
