@@ -78,27 +78,7 @@
             background-color: #fecaca; /* lighter red */
             transform: translateY(-2px);
         }
-
-        /* Section Styles */
-        .section-heading {
-            font-size: 2.25rem; /* 36px */
-            font-weight: 900;
-            letter-spacing: -0.025em;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        @media (min-width: 768px) {
-            .section-heading {
-                font-size: 2.75rem; /* 44px */
-            }
-        }
-        .section-subheading {
-            font-size: 1.125rem;
-            color: var(--pademy-text-secondary);
-            max-width: 700px;
-            margin: 0 auto 4rem;
-        }
-
+        
         /* Feature Card */
         .feature-card {
             background-color: var(--pademy-bg-white);
@@ -183,7 +163,7 @@
         .faq-item details .faq-content { padding: 0 1.5rem 1.5rem 1.5rem; color: var(--pademy-text-secondary); }
     </style>
 </head>
-<body x-data="{ courseModalOpen: false, regModalOpen: false, selectedCourse: 'general', successModalOpen: false, paymentModalOpen: false, paymentDetails: { transferContent: '' }, mobileMenuOpen: false }">
+<body x-data="{ courseModalOpen: false, regModalOpen: false, selectedCourse: 'general', successModalOpen: false, paymentModalOpen: false, paymentDetails: { transferContent: '' }, mobileMenuOpen: false, toast: { show: false, message: '' } }">
 
     <!-- Messenger Chat Plugin -->
     <div id="fb-root"></div>
@@ -225,13 +205,14 @@
                 <a @click="mobileMenuOpen=false" href="#instructor" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">Giảng viên</a>
                 <a @click="mobileMenuOpen=false" href="#testimonials" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">Feedback</a>
                 <a @click="mobileMenuOpen=false" href="#faq" class="block text-pademy-text-secondary hover:text-pademy-red transition font-semibold">FAQ</a>
+                <button @click="regModalOpen = true; selectedCourse = 'general'; mobileMenuOpen = false" class="cta-button w-full mt-4">Đăng ký</button>
             </div>
         </div>
     </header>
 
     <main>
         <!-- HERO SECTION -->
-        <section id="hero" class="relative text-white h-[60vh] min-h-[500px] flex items-center justify-center text-center">
+        <section id="hero" class="relative text-center flex items-center justify-center h-[70vh] sm:h-[60vh] min-h-[500px]">
             <!-- Background Image -->
             <div class="absolute inset-0 z-0">
                 <img src="https://i.postimg.cc/rwnRggBT/dephon.png" alt="Pademy - Bứt phá sự nghiệp với Trí tuệ nhân tạo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1920x800/111827/ffffff?text=Image+Not+Found';">
@@ -248,8 +229,8 @@
         <section id="problems" class="py-20 md:py-24">
             <div class="container mx-auto px-6">
                  <div class="text-center">
-                    <h2 class="section-heading">Thầy cô có đang gặp phải <span class="gradient-text-red">những khó khăn</span> này?</h2>
-                    <p class="section-subheading max-w-full lg:max-w-4xl">AI là xu thế không thể đảo ngược, nhưng việc bắt đầu không phải lúc nào cũng dễ dàng.</p>
+                    <h2 class="text-4xl md:text-[2.75rem] font-black tracking-tight leading-[1.2] mb-4">Thầy cô có đang gặp phải <span class="gradient-text-red">những khó khăn</span> này?</h2>
+                    <p class="text-lg text-pademy-text-secondary max-w-full lg:max-w-4xl mx-auto mb-16">AI là xu thế không thể đảo ngược, nhưng việc bắt đầu không phải lúc nào cũng dễ dàng.</p>
                 </div>
                 <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-x-12 gap-y-8">
                     <div class="flex items-start space-x-4">
@@ -294,10 +275,9 @@
         <section id="features" class="py-20 md:py-24 bg-pademy-bg-light">
             <div class="container mx-auto px-6">
                 <div class="text-center">
-                    <h2 class="section-heading">Tại sao nên chọn Pademy?</h2>
-                    <p class="section-subheading">Chúng tôi không chỉ dạy bạn công cụ, mà còn trao cho bạn tư duy và phương pháp để bứt phá.</p>
+                    <h2 class="text-4xl md:text-[2.75rem] font-black tracking-tight leading-[1.2] mb-4">Tại sao nên chọn Pademy?</h2>
+                    <p class="text-lg text-pademy-text-secondary max-w-3xl mx-auto mb-16">Chúng tôi không chỉ dạy bạn công cụ, mà còn trao cho bạn tư duy và phương pháp để bứt phá.</p>
                 </div>
-                <!-- SỬA: Áp dụng màu nền cho icon bằng inline style -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="feature-card">
                         <div class="feature-icon-wrapper" style="background-color: var(--pademy-red);"><i class="fa-solid fa-gauge-high"></i></div>
@@ -336,8 +316,8 @@
         <section id="free-courses" class="py-20 md:py-24">
              <div class="container mx-auto px-6">
                 <div class="text-center">
-                    <h2 class="section-heading">Trải Nghiệm Miễn Phí <span class="gradient-text-red">Cùng Pademy</span></h2>
-                    <p class="section-subheading">Tham gia các lớp học nhập môn và workshop hàng tháng để làm quen với AI và khám phá tiềm năng của công nghệ này.</p>
+                    <h2 class="text-4xl md:text-[2.75rem] font-black tracking-tight leading-[1.2] mb-4">Trải Nghiệm Miễn Phí <span class="gradient-text-red">Cùng Pademy</span></h2>
+                    <p class="text-lg text-pademy-text-secondary max-w-3xl mx-auto mb-16">Tham gia các lớp học nhập môn và workshop hàng tháng để làm quen với AI và khám phá tiềm năng của công nghệ này.</p>
                 </div>
                 <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto">
                     <div class="course-card course-card-free p-8 flex flex-col">
@@ -381,8 +361,8 @@
         <section id="courses" class="py-20 md:py-24 bg-pademy-bg-light">
             <div class="container mx-auto px-6">
                 <div class="text-center">
-                    <h2 class="section-heading">Lựa Chọn <span class="gradient-text-red">Chương Trình Chuyên Sâu</span></h2>
-                    <p class="section-subheading">Hai lộ trình trả phí chuyên biệt, được "may đo" cho từng nhu cầu cụ thể.</p>
+                    <h2 class="text-4xl md:text-[2.75rem] font-black tracking-tight leading-[1.2] mb-4">Lựa Chọn <span class="gradient-text-red">Chương Trình Chuyên Sâu</span></h2>
+                    <p class="text-lg text-pademy-text-secondary max-w-3xl mx-auto mb-16">Hai lộ trình trả phí chuyên biệt, được "may đo" cho từng nhu cầu cụ thể.</p>
                 </div>
                 <div class="grid lg:grid-cols-2 gap-8 lg:gap-10">
                     <div class="course-card p-8 text-center flex flex-col">
@@ -391,7 +371,7 @@
                         <p class="text-pademy-text-secondary mb-6 flex-grow">Lộ trình cho giáo viên muốn đổi mới giảng dạy, tự động hóa công việc và tạo bài giảng đột phá.</p>
                         <div class="my-6">
                            <p class="text-xl font-semibold text-gray-400 line-through">1.200.000 VNĐ</p>
-                           <p class="text-5xl font-extrabold text-pademy-red">599.000<span class="text-2xl font-bold"> VNĐ</span></p>
+                           <p class="text-4xl sm:text-5xl font-extrabold text-pademy-red">599.000<span class="text-xl sm:text-2xl font-bold"> VNĐ</span></p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-4 mt-auto">
                             <button @click="courseModalOpen = true; selectedCourse = 'teacher'" class="secondary-button w-full">Xem chi tiết</button>
@@ -404,7 +384,7 @@
                         <p class="text-pademy-text-secondary mb-6 flex-grow">Lộ trình chuyên sâu cho giảng viên & nhà khoa học muốn tăng tốc nghiên cứu, viết báo và công bố quốc tế.</p>
                         <div class="my-6">
                            <p class="text-xl font-semibold text-gray-400 line-through">3.990.000 VNĐ</p>
-                           <p class="text-5xl font-extrabold text-pademy-red">1.800.000<span class="text-2xl font-bold"> VNĐ</span></p>
+                           <p class="text-4xl sm:text-5xl font-extrabold text-pademy-red">1.800.000<span class="text-xl sm:text-2xl font-bold"> VNĐ</span></p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-4 mt-auto">
                            <button @click="courseModalOpen = true; selectedCourse = 'researcher'" class="secondary-button w-full">Xem chi tiết</button>
@@ -424,7 +404,7 @@
                         </div>
                     </div>
                     <div class="md:w-3/5">
-                        <h2 class="section-heading">Gặp gỡ <span class="gradient-text-red">chuyên gia</span></h2>
+                        <h2 class="text-4xl md:text-[2.75rem] font-black tracking-tight leading-[1.2] mb-4">Gặp gỡ <span class="gradient-text-red">chuyên gia</span></h2>
                         <h3 class="text-3xl font-bold text-pademy-text-dark mb-2">Bùi Đăng Minh</h3>
                         <div class="space-y-2 mb-4 text-pademy-text-secondary">
                            <p class="font-semibold text-lg text-pademy-red">Chuyên gia Ứng dụng AI trong Giáo dục & Nghiên cứu</p>
@@ -440,11 +420,10 @@
         <section id="testimonials" class="py-20 md:py-24 bg-pademy-bg-light">
             <div class="container mx-auto px-6">
                 <div class="text-center">
-                    <h2 class="section-heading">Học viên <span class="gradient-text-red">nói gì</span> về Pademy?</h2>
-                    <p class="section-subheading">Minh chứng rõ ràng nhất cho chất lượng chính là sự hài lòng và những kết quả mà học viên đạt được.</p>
+                    <h2 class="text-4xl md:text-[2.75rem] font-black tracking-tight leading-[1.2] mb-4">Học viên <span class="gradient-text-red">nói gì</span> về Pademy?</h2>
+                    <p class="text-lg text-pademy-text-secondary max-w-3xl mx-auto mb-16">Minh chứng rõ ràng nhất cho chất lượng chính là sự hài lòng và những kết quả mà học viên đạt được.</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- SỬA: Cập nhật ảnh feedback -->
                     <div class="testimonial-card">
                         <img src="https://i.postimg.cc/YqVpbQTW/photo-2025-06-25-15-36-30.jpg" alt="Feedback từ học viên 1"
                              onerror="this.onerror=null;this.src='https://placehold.co/380x560/f3f4f6/111827?text=Image+Not+Found';">
@@ -464,8 +443,8 @@
         <section id="faq" class="py-20 md:py-24">
            <div class="container mx-auto px-6">
                <div class="text-center">
-                   <h2 class="section-heading">Giải đáp thắc mắc</h2>
-                   <p class="section-subheading">Những câu hỏi phổ biến nhất về các khóa học AI, giúp bạn đưa ra quyết định một cách tự tin.</p>
+                   <h2 class="text-4xl md:text-[2.75rem] font-black tracking-tight leading-[1.2] mb-4">Giải đáp thắc mắc</h2>
+                   <p class="text-lg text-pademy-text-secondary max-w-3xl mx-auto mb-16">Những câu hỏi phổ biến nhất về các khóa học AI, giúp bạn đưa ra quyết định một cách tự tin.</p>
                </div>
                <div class="max-w-3xl mx-auto space-y-4">
                    <div class="faq-item"><details><summary>Tôi có cần biết về lập trình để tham gia không?</summary><div class="faq-content"><p class="pt-4">Hoàn toàn không. Các khóa học được thiết kế cho người không chuyên, tập trung hướng dẫn bạn sử dụng và khai thác sức mạnh của các công cụ AI có sẵn mà không yêu cầu kiến thức lập trình.</p></div></details></div>
@@ -488,7 +467,7 @@
     </main>
 
     <!-- Modal: Chi tiết khóa học -->
-    <div x-show="courseModalOpen" @keydown.escape.window="courseModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal" x-cloak>
+    <div x-show="courseModalOpen" @keydown.escape.window="courseModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal p-4" x-cloak>
         <div @click.away="courseModalOpen = false" class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8 modal-content" x-show="courseModalOpen" x-transition>
             <div x-show="selectedCourse === 'teacher'">
                 <h3 class="text-2xl font-bold mb-4">Chi tiết: AI cho Giáo viên</h3>
@@ -517,8 +496,8 @@
     </div>
 
     <!-- Modal: Đăng ký -->
-    <div x-show="regModalOpen" @keydown.escape.window="regModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal" x-cloak>
-        <form id="registration-form" @submit.prevent="submitForm" class="bg-white rounded-lg shadow-xl w-full max-w-lg p-8 modal-content" x-show="regModalOpen" x-transition>
+    <div x-show="regModalOpen" @keydown.escape.window="regModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal p-4" x-cloak>
+        <form id="registration-form" @submit.prevent="submitForm" class="bg-white rounded-lg shadow-xl w-full max-w-lg p-8 modal-content max-h-[90vh] overflow-y-auto" x-show="regModalOpen" x-transition>
             <h3 class="text-2xl font-bold mb-2">Đăng ký tư vấn & Trải nghiệm</h3>
             <p class="text-pademy-text-secondary mb-6">Để lại thông tin, Pademy sẽ liên hệ với bạn ngay!</p>
             <div class="space-y-4">
@@ -548,7 +527,7 @@
     </div>
 
     <!-- Modal: Gửi thành công (chung) -->
-    <div x-show="successModalOpen" @keydown.escape.window="successModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal" x-cloak>
+    <div x-show="successModalOpen" @keydown.escape.window="successModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal p-4" x-cloak>
         <div @click.away="successModalOpen = false" class="bg-white rounded-lg shadow-xl w-full max-w-sm p-8 text-center modal-content" x-show="successModalOpen" x-transition>
             <div class="w-16 h-16 bg-pademy-green rounded-full flex items-center justify-center text-white text-3xl mx-auto"><i class="fa-solid fa-check"></i></div>
             <h3 class="text-2xl font-bold my-4">Gửi thành công!</h3>
@@ -558,7 +537,7 @@
     </div>
     
     <!-- Modal Thanh toán -->
-    <div x-show="paymentModalOpen" @keydown.escape.window="paymentModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 modal" x-cloak>
+    <div x-show="paymentModalOpen" @keydown.escape.window="paymentModalOpen = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 modal p-4" x-cloak>
         <div @click.away="paymentModalOpen = false" class="bg-white rounded-lg shadow-xl w-full max-w-md p-8 text-center modal-content" x-show="paymentModalOpen" x-transition>
             <div class="w-16 h-16 bg-pademy-red rounded-full flex items-center justify-center text-white text-3xl mx-auto"><i class="fa-solid fa-file-invoice-dollar"></i></div>
             <h3 class="text-2xl font-bold my-4">Thông tin thanh toán</h3>
@@ -576,14 +555,14 @@
                     <label class="font-semibold text-gray-500 text-sm">Số tài khoản</label>
                     <div class="flex items-center space-x-2">
                         <p class="font-bold text-lg text-pademy-red" id="stk">19031804339888</p>
-                        <button @click="copyToClipboard('stk')" class="text-gray-400 hover:text-pademy-red"><i class="fa-solid fa-copy"></i></button>
+                        <button @click="copyToClipboard('stk', $data)" class="text-gray-400 hover:text-pademy-red"><i class="fa-solid fa-copy"></i></button>
                     </div>
                 </div>
                  <div>
                     <label class="font-semibold text-gray-500 text-sm">Nội dung chuyển khoản</label>
                      <div class="flex items-center space-x-2">
                         <p class="font-bold text-lg text-pademy-red truncate" x-text="paymentDetails.transferContent" id="noidung"></p>
-                        <button @click="copyToClipboard('noidung')" class="text-gray-400 hover:text-pademy-red flex-shrink-0"><i class="fa-solid fa-copy"></i></button>
+                        <button @click="copyToClipboard('noidung', $data)" class="text-gray-400 hover:text-pademy-red flex-shrink-0"><i class="fa-solid fa-copy"></i></button>
                     </div>
                 </div>
             </div>
@@ -591,8 +570,20 @@
         </div>
     </div>
     
+    <!-- Toast Notification -->
+    <div x-show="toast.show" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 transform translate-y-2"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform translate-y-2"
+         class="fixed bottom-5 right-5 bg-gray-900 text-white py-2 px-5 rounded-lg shadow-lg"
+         x-text="toast.message" x-cloak>
+    </div>
+
     <script>
-        function copyToClipboard(elementId) {
+        function copyToClipboard(elementId, alpineInstance) {
             const textToCopy = document.getElementById(elementId).innerText;
             const tempTextArea = document.createElement('textarea');
             tempTextArea.value = textToCopy;
@@ -600,7 +591,13 @@
             tempTextArea.select();
             document.execCommand('copy');
             document.body.removeChild(tempTextArea);
-            alert('Đã sao chép: ' + textToCopy);
+
+            // Show toast notification instead of alert
+            if (alpineInstance) {
+                alpineInstance.toast.message = 'Đã sao chép!';
+                alpineInstance.toast.show = true;
+                setTimeout(() => alpineInstance.toast.show = false, 2500);
+            }
         }
 
         function submitForm() {
